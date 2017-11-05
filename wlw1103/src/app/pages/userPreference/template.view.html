@@ -1,0 +1,327 @@
+<div class="page-header clearfix">
+    <ol class="breadcrumb">
+        <li>
+            <a href="#/home">首页</a>
+        </li>
+        <li>
+            <a href="#">资料查询</a>
+        </li>
+        <li class="active">用户资料查询</li>
+    </ol>
+</div>
+<div>
+    <form class="form-inline margin-bottom-20">
+        <div class="form-group">
+            <span>查询号码：</span>
+            <input type="text" class="form-control" ng-model="vm.num">
+        </div>
+        <ui-radio-group ng-model="vm.selected">
+            <ui-radio value="'0'" class="margin-right-10">用户号码</ui-radio>
+            <ui-radio value="'1'" class="margin-right-10">用户标识</ui-radio>
+            <ui-radio value="'2'" class="margin-right-10">账户标识</ui-radio>
+        </ui-radio-group>
+        <button type="submit" class="btn btn-primary" ng-click="vm.submitTable()">查找</button>
+    </form>
+    <div style="overflow:auto;min-height:140px" class="padding-top-10  padding-bottom-20">
+        <!-- 用户资料查询结果 -->
+        <table style="table-layout:fixed;width:2500px;" class="table table-striped table-bordered table-hover text-center resizable">
+            <thead>
+                <tr>
+                    <th width="3%">编号</th>
+                    <th>号码</th>
+                    <th>用户标识</th>
+                    <th>付费类型</th>
+                    <th>装机时间</th>
+                    <th>起租时间</th>
+                    <th>信控额度（分）</th>
+                    <th>状态</th>
+                    <th>状态变更时间</th>
+                    <th>客户标识</th>
+                    <th>IMSI</th>
+                    <th>是否属于红名单</th>
+                    <th>是否实名制</th>
+                    <th>本地网ID</th>
+                    <th>本地网</th>
+                    <th>省份ID</th>
+                    <th>省份</th>
+                    <th>转售商标识</th>
+                    <th>转售商</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in vm.table" style="cursor: pointer;" ng-click="vm.seek($event)">
+                    <td>{{$index+1}}</td>
+                    <td>{{item["acc_nbr"]}}</td>
+                    <td>{{item["serv_id"]}}</td>
+                    <td>{{item["billing_mode"]}}</td>
+                    <td>{{item["create_date"]}}</td>
+                    <td>{{item["rent_date"]}} </td>
+                    <td>{{item["credit_limit"]}}</td>
+                    <td>{{item["state"]}}</td>
+                    <td>{{item["state_date"]}} </td>
+                    <td>{{item["cust_id"]}}</td>
+                    <td>{{item["imsi"]}}</td>
+                    <td>{{item["isRedList"]}} </td>
+                    <td>{{item["stop_type"]}}</td>
+                    <td>{{item["region_id"]}}</td>
+                    <td>{{item["city_name"]}}</td>
+                    <td>{{item["prov"]}} </td>
+                    <td>{{item["area_name"]}}</td>
+                    <td>{{item["segment_id"]}}</td>
+                    <td>{{item["segment_name"]}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- loading -->
+        <ui-loading-wrap loading="vm.scp.loading" list="vm.scp.list" result="vm.scp.result" message="vm.scp.msg"></ui-loading-wrap>
+    </div>
+    <!-- 分页 -->
+    <ui-pagination-group ng-model="vm.page.currentPage" items-per-page="vm.page.perPage" total-items="vm.page.totalItems" ng-change="vm.changePage(vm.page.currentPage)"
+        on-items-per-page-change="vm.changePerPage(perPage)" on-refresh="vm.refreshPage()" items-per-page-max="50" items-per-page-step="10"
+        style="padding-top:20px;padding-bottom:20px;"></ui-pagination-group>
+
+    <!-- 隔行 -->
+    <p class="bg-info"></p>
+    <!-- 详情 -->
+    <ui-tabset type="navigation" active-id="vm.tabId">
+        <ui-tab tab-id="t1">
+            <ui-tab-heading>前向流量池成员</ui-tab-heading>
+            <div class="table-responsive table-box answer">
+                <table style="table-layout:fixed;width:1800px" class="table table-striped table-bordered table-hover text-center resizable">
+                    <thead>
+                        <tr>
+                            <th width="4.5%">编号</th>
+                            <th>号码</th>
+                            <th>用户标识</th>
+                            <th>角色信息</th>
+                            <th>付费类型</th>
+                            <th>装机时间</th>
+                            <th>起租时间</th>
+                            <th>成员生效时间</th>
+                            <th>成员失效时间 </th>
+                            <th>状态</th>
+                            <th>状态变更时间 </th>
+                            <th>客户标识 </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in vm.table1">
+                            <td>{{$index+1}}</td>
+                            <td>{{item["acc_nbr"]}}</td>
+                            <td>{{item["serv_id"]}}</td>
+                            <td>{{item["role"]}}</td>
+                            <td>{{item["billing_mode"]}}</td>
+                            <td>{{item["create_date"]}}</td>
+                            <td>{{item["rent_date"]}}</td>
+                            <td>{{item["eff_date"]}}</td>
+                            <td>{{item["exp_date"]}} </td>
+                            <td>{{item["state"]}}</td>
+                            <td>{{item["state_date"]}}</td>
+                            <td>{{item["cust_id"]}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- loading -->
+                <ui-loading-wrap loading="vm.scp1.loading" list="vm.scp1.list" result="vm.scp1.result" message="vm.scp1.msg"></ui-loading-wrap>
+            </div>
+            <!-- 分页 -->
+            <ui-pagination-group ng-model="vm.page1.currentPage" items-per-page="vm.page1.perPage" total-items="vm.page1.totalItems"
+                ng-change="vm.changePage1(vm.page1.currentPage)" on-items-per-page-change="vm.changePerPage1(perPage)" on-refresh="vm.refreshPage1()"
+                items-per-page-max="50" items-per-page-step="10" style="padding-top:20px;padding-bottom:20px;"></ui-pagination-group>
+        </ui-tab>
+        <ui-tab tab-id="t2">
+            <ui-tab-heading>用户附属产品</ui-tab-heading>
+            <div class="table-responsive answer">
+                <table style="table-layout:fixed;width:1800px" class="table table-striped table-bordered table-hover text-center resizable">
+                    <thead>
+                        <tr>
+                            <th width="4.5%">编号</th>
+                            <th>号码</th>
+                            <th>用户标识</th>
+                            <th>产品标识</th>
+                            <th>产品名称</th>
+                            <th>产品描述</th>
+                            <th>生效时间</th>
+                            <th>失效时间</th>
+                            <th>SERV_PRODUCT_ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in vm.table2" style="cursor:pointer;" ng-click="vm.goAttrInfo($event)">
+                            <td>{{$index+1}}</td>
+                            <td>{{item["acc_nbr"]}}</td>
+                            <td>{{item["serv_id"]}}</td>
+                            <td>{{item["product_id"]}}</td>
+                            <td>{{item["product_name"]}}</td>
+                            <td>{{item["product_comments"]}}</td>
+                            <td>{{item["eff_date"]}}</td>
+                            <td>{{item["exp_date"]}}</td>
+                            <td>{{item["serv_product_id"]}}</td>
+                            <td style="display:none">{{item["cust_id"]}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- loading -->
+                <ui-loading-wrap loading="vm.scp2.loading" list="vm.scp2.list" result="vm.scp2.result" message="vm.scp2.msg"></ui-loading-wrap>
+            </div>
+            <ui-pagination-group ng-model="vm.page2.currentPage" items-per-page="vm.page2.perPage" total-items="vm.page2.totalItems"
+                ng-change="vm.changePage2(vm.page2.currentPage)" on-items-per-page-change="vm.changePerPage2(perPage)" on-refresh="vm.refreshPage2()"
+                items-per-page-max="50" items-per-page-step="10" style="padding-top:20px;padding-bottom:20px;"></ui-pagination-group>
+        </ui-tab>
+        <ui-tab tab-id="t3" active="vm.t3">
+            <ui-tab-heading>用户附属产品属性</ui-tab-heading>
+            <!-- <p>.33..</p> -->
+            <!-- 用户资料查询结果 -->
+            <div class="table-responsive table-box answer">
+                <table style="table-layout:fixed;width:1400px" class="table table-striped table-bordered table-hover text-center resizable">
+                    <thead>
+                        <tr>
+                            <th width="5.7%">编号</th>
+                            <th>号码</th>
+                            <th>用户标识</th>
+                            <th>属性名称</th>
+                            <th>属性值</th>
+                            <th>生效时间</th>
+                            <th>失效时间</th>
+                            <th>SERV_PRODUCT_ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in vm.table3">
+                            <td>{{$index+1}}</td>
+                            <td>{{item["acc_nbr"]}}</td>
+                            <td>{{item["serv_id"]}}</td>
+                            <td>{{item["attr_id"]}}</td>
+                            <td>{{item["attr_val"]}}</td>
+                            <td>{{item["eff_date"]}}</td>
+                            <td>{{item["exp_date"]}}</td>
+                            <td>{{item["serv_product_id"]}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- loading -->
+                <ui-loading-wrap loading="vm.scp3.loading" list="vm.scp3.list" result="vm.scp3.result" message="vm.scp3.msg"></ui-loading-wrap>
+            </div>
+            <!-- 分页 -->
+            <ui-pagination-group ng-model="vm.page3.currentPage" items-per-page="vm.page3.perPage" total-items="vm.page3.totalItems"
+                ng-change="vm.changePage3(vm.page3.currentPage)" on-items-per-page-change="vm.changePerPage3(perPage)" on-refresh="vm.refreshPage3()"
+                items-per-page-max="50" items-per-page-step="10" style="padding-top:20px;padding-bottom:20px;"></ui-pagination-group>
+        </ui-tab>
+        <ui-tab tab-id="t4">
+            <ui-tab-heading>后向流量池成员</ui-tab-heading>
+            <!-- <p>.44..</p> -->
+            <!-- 用户资料查询结果 -->
+            <div class="table-responsive table-box answer">
+                <table style="table-layout:fixed;width:1500px" class="table table-striped table-bordered table-hover text-center resizable">
+                    <thead>
+                        <tr>
+                            <th width="5.4%">编号</th>
+                            <th>代表号码</th>
+                            <th>代表号码用户标识</th>
+                            <th>量池生效时间</th>
+                            <th>量池失效时间</th>
+                            <th>成员号码</th>
+                            <th>成员用户标识</th>
+                            <th>成员限额</th>
+                            <th>成员生效时间</th>
+                            <th>成员失效时间</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in vm.table4">
+                            <td>{{$index+1}}</td>
+                            <td>{{item["acc_nbr"]}}</td>
+                            <td>{{item["serv_id"]}}</td>
+                            <td>{{item["pool_eff_date"]}}</td>
+                            <td>{{item["pool_exp_date"]}}</td>
+                            <td>{{item["mem_acc_nbr"]}}</td>
+                            <td>{{item["mem_serv_id"]}}</td>
+                            <td>{{item["amount"]}}</td>
+                            <td>{{item["eff_date"]}}</td>
+                            <td>{{item["exp_date"]}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- loading -->
+                <ui-loading-wrap loading="vm.scp4.loading" list="vm.scp4.list" result="vm.scp4.result" message="vm.scp4.msg"></ui-loading-wrap>
+            </div>
+            <!-- 分页 -->
+            <ui-pagination-group ng-model="vm.page4.currentPage" items-per-page="vm.page4.perPage" total-items="vm.page4.totalItems"
+                ng-change="vm.changePage4(vm.page4.currentPage)" on-items-per-page-change="vm.changePerPage4(perPage)" on-refresh="vm.refreshPage4()"
+                items-per-page-max="50" items-per-page-step="10" style="padding-top:20px;padding-bottom:20px;"></ui-pagination-group>
+        </ui-tab>
+
+        <ui-tab tab-id="t5">
+            <ui-tab-heading>用户属性查询</ui-tab-heading>
+            <div class="table-responsive answer">
+                <table style="table-layout:fixed;width:1100px" class="table table-striped table-bordered table-hover text-center resizable">
+                    <thead>
+                        <tr>
+                            <th width="7%">编号</th>
+                            <th>设备号码</th>
+                            <th>用户ID</th>
+                            <th>属性</th>
+                            <th>属性值</th>
+                            <th>生效时间</th>
+                            <th>失效时间</th>
+                            <th>变更时间</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in vm.table5" style="cursor: pointer;" ng-click="vm.goMergeNbr($event)">
+                            <td>{{$index+1}}</td>
+                            <td>{{item["acc_nbr"]}}</td>
+                            <td>{{item["serv_id"]}}</td>
+                            <td ng-class="{under: item.attr_id == vm.same_value}">{{item["attr_id"]}}</td>
+                            <td>{{item["attr_value"]}}</td>
+                            <td>{{item["eff_date"]}}</td>
+                            <td>{{item["exp_date"]}}</td>
+                            <td>{{item["update_date"]}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- loading -->
+                <ui-loading-wrap loading="vm.scp5.loading" list="vm.scp5.list" result="vm.scp5.result" message="vm.scp5.msg"></ui-loading-wrap>
+            </div>
+            <!-- 分页 -->
+            <ui-pagination-group ng-model="vm.page5.currentPage" items-per-page="vm.page5.perPage" total-items="vm.page5.totalItems"
+                ng-change="vm.changePage5(vm.page5.currentPage)" on-items-per-page-change="vm.changePerPage5(perPage)" on-refresh="vm.refreshPage5()"
+                items-per-page-max="50" items-per-page-step="10" style="padding-top:20px;padding-bottom:20px;"></ui-pagination-group>
+        </ui-tab>
+        <ui-tab tab-id="t6" active="vm.t6">
+            <ui-tab-heading>合账号码查询</ui-tab-heading>
+            <div class="table-responsive answer">
+                <table style="table-layout:fixed;width:1100px" class="table table-striped table-bordered table-hover text-center resizable">
+                    <thead>
+                        <tr>
+                            <th width="7%">编号</th>
+                            <th>设备号码</th>
+                            <th>用户ID</th>
+                            <th>合账号码</th>
+                            <th>生效时间</th>
+                            <th>生效时间</th>
+                            <th>变更时间</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in vm.table6">
+                            <td>{{$index+1}}</td>
+                            <td>{{item["acc_nbr"]}}</td>
+                            <td>{{item["serv_id"]}}</td>
+                            <td>{{item["merge_nbr"]}}</td>
+                            <td>{{item["eff_date"]}}</td>
+                            <td>{{item["exp_date"]}}</td>
+                            <td>{{item["update_date"]}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- loading -->
+                <ui-loading-wrap loading="vm.scp6.loading" list="vm.scp6.list" result="vm.scp6.result" message="vm.scp6.msg"></ui-loading-wrap>
+            </div>
+            <!-- 分页 -->
+            <ui-pagination-group ng-model="vm.page6.currentPage" items-per-page="vm.page6.perPage" total-items="vm.page6.totalItems"
+                ng-change="vm.changePage6(vm.page6.currentPage)" on-items-per-page-change="vm.changePerPage6(perPage)" on-refresh="vm.refreshPage6()"
+                items-per-page-max="50" items-per-page-step="10" style="padding-top:20px;padding-bottom:20px;"></ui-pagination-group>
+        </ui-tab>
+    </ui-tabset>
+</div>

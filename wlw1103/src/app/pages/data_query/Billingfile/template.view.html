@@ -1,0 +1,72 @@
+<div class="page-header clearfix">
+    <ol class="breadcrumb">
+        <li>
+            <a href="#/home">首页</a>
+        </li>
+        <li>账务详单查询</li>
+        <li class="active">账单文件查询</li>
+    </ol>
+</div>
+
+<div>
+    <form class="form-inline margin-bottom-20">
+        <div class="form-group margin-right-10">
+            <label for="exampleInputName2">业务号码：</label>
+            <input type="text" class="form-control" ng-model="vm.num" />
+        </div>
+        <label for="exampleInputName2">业务类型：</label>
+        <ui-radio-group ng-model="vm.selected">
+            <ui-radio value="'0'" class="margin-right-10">按用户</ui-radio>
+            <ui-radio value="'1'" class="margin-right-10">按合账号</ui-radio>
+        </ui-radio-group>
+        <div class="form-group margin-right-10">
+            <label>自然月:</label>
+            <input class="form-year form-control" ui-datepicker-popup type="text" ng-model="vm.year" view="year" format="yyyy" style="width:70px"
+            />年
+            <input class="form-month form-control" ui-datepicker-popup type="text" ng-model="vm.month" view="month" format="MM" style="width:55px"
+            />月
+        </div>
+        <button type="submit" class="btn btn-primary" ng-click="vm.submitTable()">查找</button>
+    </form>
+    <!-- 用户资料查询结果 -->
+    <div style="overflow:auto;min-height:140px" class="padding-top-10  padding-bottom-20">
+        <table style="table-layout:fixed;width:1200px" class="table table-striped table-bordered table-hover text-center resizable">
+            <thead>
+                <tr>
+                    <th>下发文件名</th>
+                    <th>账户ID</th>
+                    <th>账单金额</th>
+                    <th>账期</th>
+                    <th>账目项</th>
+                    <th>收费省</th>
+                    <th>合账号码编码</th>
+                </tr>
+            </thead>
+            <!-- <tbody>
+                <tr ng-repeat="item in vm.table">
+                    <td>{{$index+1}}</td>
+                    <td>{{item["file_name"]}}</td>
+                    <td>{{item["acct_id"]}}</td>
+                    <td>{{item["amount"]}}</td>
+                    <td>{{item["billing_cycle"]}}</td>
+                    <td>{{item["acct_Item_type_name"]}}</td>
+                    <td>{{item["prov"]}}</td>
+                    <td>{{item["merge_nbr"]}}</td>
+                </tr>
+            </tbody> -->
+            <tbody ng-repeat="item in vm.table">
+                <tr ng-repeat="acct in item['acct_Item_type_name'] track by $index">
+                    <td>{{acct['file_name']}}</td>                            
+                    <td ng-if="$index ==0" rowspan="{{item['acct_Item_type_name'].length}}">{{item['acct_id']}}</td>
+                    <td>{{acct['amount']}}</td>
+                    <td>{{acct['billing_cycle']}}</td>
+                    <td>{{acct['acct_Item_type_name']}}</td>
+                    <td>{{acct['prov']}}</td>
+                    <td>{{acct['merge_nbr']}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- loading -->
+        <ui-loading-wrap loading="vm.scp.loading" list="vm.scp.list" result="vm.scp.result" message="vm.scp.msg"></ui-loading-wrap>
+    </div>
+</div>

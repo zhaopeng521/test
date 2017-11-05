@@ -1,0 +1,85 @@
+<div class="page-header clearfix">
+    <ol class="breadcrumb">
+        <li><a href="#/home">首页</a></li>
+        <li><a href="#/log/basic">账务详单查询</a></li>
+        <li class="active">余额查询</li>
+    </ol>
+</div>
+
+<div>
+    <p class="bg-info">余额查询</p>
+    <form class="form-inline margin-bottom-20">
+        <div class="form-group margin-right-20">
+            <label for="exampleInputName2">所属地区:</label>
+            <select class="form-control">
+                    <option value="0">北京</option>
+                    <option value="1">上海</option>
+                    <option value="2">南京</option>
+                </select>省(市)
+        </div>
+        <div class="form-group margin-right-20">
+            <label for="exampleInputName2">手机号码：</label>
+            <input type="text" class="form-control" ng-model="vm.num">
+        </div>
+        <div class="form-group margin-right-20">
+            <label for="exampleInputName2">转售商ID:</label>
+            <select class="form-control">
+                <option value="0">物联网公司</option>
+            </select>
+        </div>
+        <label for="exampleInputName2">查询类型:</label>
+        <ui-radio-group ng-model="vm.selected">
+            <ui-radio value="'0'" class="margin-right-10">按账户</ui-radio>
+            <ui-radio value="'1'" class="margin-right-10">按用户</ui-radio>
+            <ui-radio value="'2'" class="margin-right-10">用户+账户</ui-radio>
+        </ui-radio-group>
+        <button type="submit" class="btn btn-primary" ng-click="vm.submitTable()">查询</button>
+    </form>
+    <p class="bg-info">余额详情</p>
+    <div>
+        <b>可用余额总计:</b><span class="margin-left-20 margin-right-20">{{vm.userTotal}}</span>元
+    </div>
+    <!-- 用户资料查询结果 -->
+    <div style="overflow:auto;min-height:140px" class="padding-top-10  padding-bottom-20">
+        <table style="table-layout:fixed;width:2200px" class="table table-striped table-bordered table-hover text-center resizable">
+            <thead>
+                <tr>
+                    <th width="4%">编号</th>
+                    <!-- <th>可用余额总计(元)</th> -->
+                    <th>余额账本ID</th>
+                    <th>余额账本类型</th>
+                    <th>余额账本描述</th>
+                    <th>量本级别</th>
+                    <th>专款ID</th>
+                    <th>专款描述</th>
+                    <th>账本余额</th>
+                    <th>可用余额（元）</th>
+                    <th>当月已抵扣值（元）</th>
+                    <th>可提取余额（元）</th>
+                    <th>生效时间</th>
+                    <th>失效时间</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in vm.table">
+                    <td>{{$index+1}}</td>
+                    <!-- <td>{{item["balance_draw"]}}</td> -->
+                    <td>{{item["acct_balance_id"]}}</td>
+                    <td>{{item["balance_itemType_id"]}}</td>
+                    <td>{{item["balance_itemType_detail"]}}</td>
+                    <td>{{item["balance_obj_flag"]=="1"?"用户级":"账户级"}}</td>
+                    <td>{{item["balance_special_id"]}}</td>
+                    <td>{{item["balance_special_name"]}}</td>
+                    <td>{{item["balance_amount"]}}</td>
+                    <td>{{item["balance_available"]}}</td>
+                    <td>{{item["balance_used"]}}</td>
+                    <td>{{item["balance_draw"]}}</td>
+                    <td>{{item["eff_date"]}}</td>
+                    <td>{{item["exp_date"]}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- loading -->
+        <ui-loading-wrap loading="vm.scp.loading" list="vm.scp.list" result="vm.scp.result" message="vm.scp.msg"></ui-loading-wrap>
+    </div>
+</div>

@@ -1,0 +1,85 @@
+.table-tree {
+    .tree-handle-td {
+        min-width: 250px;
+    }
+    .handle {
+        cursor: pointer;
+        padding: 0 5px;
+        text-align: center;
+        color: $gray-lighter;
+        @include transition();
+
+        &:hover {
+            color: $gray-light;
+        }
+    }
+    .handle.expanded {
+        &:before {
+            content: "\f0d7";
+            font-family: $font-family-icon;
+        }
+    }
+    .handle.collapsed {
+        &:before {
+            content: "\f0da";
+            font-family: $font-family-icon;
+        }
+    }
+    .handle.leaf {
+        &:before {
+            content: " ";
+            width: 8px;
+            display: inline-block;
+        }
+    }
+
+    td.level-2 {
+        .handle {
+            margin: 0 0 0 15px;
+        }
+    }
+
+    td.level-3 {
+        .handle {
+            margin: 0 0 0 30px;
+        }
+    }
+
+    td.level-4 {
+        .handle {
+            margin: 0 0 0 45px;
+        }
+    }
+
+    td.level-5 {
+        .handle {
+            margin: 0 0 0 60px;
+        }
+    }
+
+    td.level-6 {
+        .handle {
+            margin: 0 0 0 75px;
+        }
+    }
+
+    td.level-7 {
+        .handle {
+            margin: 0 0 0 90px;
+        }
+    }
+}
+
+table{
+    // min-height:200px;
+    th{
+        font-size: 13px;
+        text-align: center;
+    }
+    td{
+        font-size:11px;
+        white-space: nowrap;
+        overflow: hidden; 
+        text-overflow: ellipsis;
+    }
+}

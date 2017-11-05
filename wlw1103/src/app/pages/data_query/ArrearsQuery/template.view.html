@@ -1,0 +1,76 @@
+<div class="page-header clearfix">
+    <ol class="breadcrumb">
+        <li>
+            <a href="#/home">首页</a>
+        </li>
+        <li>账务详单查询</li>
+        <li class="active">欠费查询</li>
+    </ol>
+</div>
+
+<div>
+    <form class="form-inline margin-bottom-20">
+        <div class="form-group margin-right-20">
+            <label for="exampleInputName2">查询号码：</label>
+            <input type="text" class="form-control" ng-model="vm.num" />
+        </div>
+        <div class="form-group margin-right-20">
+            <label for="exampleInputName2">转售商ID:</label>
+            <select class="form-control">
+                <option value="0">物联网公司</option>
+            </select>
+        </div>
+        <div class="form-group margin-right-20">
+            <label for="exampleInputName2">查询条件类型:</label>
+            <select class="form-control" ng-model="vm.selected ">
+                <option value="0">用户账户</option>
+                <option value="2">用户号码</option>
+            </select>
+        </div>
+        <div class="form-group margin-right-20">
+            <label for="exampleInputName2">查询用户类型:</label>
+            <select class="form-control" ng-model="vm.selected1">
+                <option value="0">按账户查询</option>
+                <option value="1">按用户查询</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary" ng-click="vm.submitTable()">查询</button>
+    </form>
+    <div class="arrears">
+            账户ID : <span>{{vm.table["acct_id"]}}</span>
+            账户名称 : <span>{{vm.table["acct_name"]}}</span>
+            滞纳金 : <span>{{vm.table["due"]}}</span>
+            减免滞纳金 : <span>{{vm.table["derate_due"]}}</span>
+            可用余额 : <span>{{vm.table["valid_balance"]}}</span>
+            应收金额 : <span>{{vm.table["should_sharge"]}}</span>
+            上次零头 : <span>{{vm.table["previous_change"]}}</span>
+        </div>
+    <!-- 用户资料查询结果 -->
+    <div style="overflow:auto;max-height:400px" class="padding-top-10  padding-bottom-20">
+        <table style="table-layout:fixed;width:1300px" class="table table-striped table-bordered text-center resizable">
+            <thead>
+                <tr>
+                    <th>账务周期</th>
+                    <th>费用类型</th>
+                    <th>账目类型ID</th>
+                    <th>账目类型名称</th>
+                    <th>欠费金额（元）</th>
+                    <th>合计（元）</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="item in vm.a_data">
+                <tr ng-repeat="acct in item['Acct-Item-Group'][0]['Acct-Item-Type'] track by $index">                          
+                    <td ng-if="$index ==0" rowspan="{{item['Acct-Item-Group'][0]['Acct-Item-Type'].length}}">{{item['billing_cycle_id']}}</td>
+                    <td ng-if="$index ==0" rowspan="{{item['Acct-Item-Group'][0]['Acct-Item-Type'].length}}">通讯费</td>
+                    <td>{{acct['acct_item_type_id']}}</td>
+                    <td>{{acct['acct_item_type_name']}}</td>
+                    <td>{{acct['acct_item_charge']}}</td>
+                    <td ng-if="$index ==0" rowspan="{{item['Acct-Item-Group'][0]['Acct-Item-Type'].length}}">{{item['Acct-Item-Group'][0]['total']}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <ui-loading-wrap loading="vm.scp.loading" list="vm.scp.list" result="vm.scp.result" message="vm.scp.msg"></ui-loading-wrap>
+    </div>
+    
+</div>

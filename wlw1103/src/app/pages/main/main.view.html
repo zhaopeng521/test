@@ -1,0 +1,17 @@
+<ui-header-wrap></ui-header-wrap>
+<div class="mainHome" ng-class="{'mainHomeCollapsed': vm.menu.collapsed}">
+    <div class="toggleNavBtn" ng-click="vm.toggleNavBtn()"></div>
+    <ui-sidebar links="vm.links" on-open-tab="vm.onOpenTab(tab)"></ui-sidebar>
+    <div class="container-wrap">
+        <div class="container-right">
+            <div class="tabs" ng-class="{'tabs-overflow': vm.overflow}" id="frameTabs">
+                <span class="move-btn move-left" ng-click="vm.moveLeft()"><i class="fa fa-angle-left"></i></span>
+                <span class="move-btn move-right" ng-click="vm.moveRight()"><i class="fa fa-angle-right"></i></span>
+                <ul class="navigation-3">
+                    <li ng-repeat="tab in vm.tabs" ng-click="vm.switchTab(tab)" ng-dblclick="vm.closeTab(tab)" ng-class="{'active': tab.name === vm.activeTab.name}" ui-context-menu ui-context-menu-list="vm.menu" ui-context-menu-options="vm.menuOptions" ui-context-menu-click="vm.clickContextMenu(item, tab)"><span>{{tab.name}}<i class="fa fa-times" ng-click="vm.closeTab(tab)"></i></span></li>
+                </ul>
+            </div>
+            <iframe ng-repeat="tab in vm.tabs" ng-show="tab.name === vm.activeTab.name" class="mainFrame" frameborder="0" ng-src="{{tab.link}}"></iframe>
+        </div>
+    </div>
+</div>

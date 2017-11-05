@@ -1,0 +1,169 @@
+.mainHome {
+    .toggleNavBtn {
+        position: fixed;
+        z-index: 2;
+        top: 80px;
+        left: 180px;
+        padding: 5px;
+        border-radius: 0 4px 4px 0;
+        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.12);
+        background: #fff;
+        transition: .2s ease-in all;
+        font-size: 12px;
+        cursor: pointer;
+
+        &:after {
+            content: "\f100";
+        }
+
+        &:hover {
+            color: #fff;
+            box-shadow: 0 2px 2px rgba(0, 0, 0, 0.16);
+            background: #3c90e0;
+        }
+    }
+
+    .navigation {
+        z-index: 3 !important;
+        transition: .2s ease-in all;
+    }
+
+    .mainFrame {
+        position: fixed;
+        margin: -80px 0 0 -222px;
+        padding: 80px 10px 10px 232px;
+        right: 0;
+        bottom: 0;
+        height: 100%;
+        width: 100%;
+        transition: .2s ease-in all;
+    }
+
+    .tabs {
+        position: relative;
+        z-index: 10;
+        background: #629fe0;
+        padding-top: 6px;
+        height: 32px;
+        overflow: hidden;
+        margin-top: 60px;
+        margin-left: 222px;
+
+        .navigation-3 {
+            white-space: nowrap;
+            position: relative;
+            left: 0;
+            cursor: pointer;
+
+            li {
+                float: none;
+                display: inline-block;
+
+                .dropdown-menu {
+                    li {
+                        display: block;
+                        
+                        a {
+                            background: #fff;
+                            color: #333;
+
+                            &:hover {
+                                background: #eee;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .navigation-3>li>span {
+            padding: 8px 25px 8px 20px;
+            border-radius: 3px 3px 0 0;
+            background: #2575cc;
+            color: #fff;
+            user-select: none;
+
+            i {
+                position: absolute;
+                right: 5px;
+                top: 2px;
+                border-radius: 2px;
+                padding: 1px 2px;
+                color: #96BDE7;
+
+                &:hover {
+                    background: #d9534f;
+                    color: #fff;
+                }
+            }
+        }
+
+        .navigation-3>li.active>span {
+            background: #f2f5fa;
+            color: #333;
+
+            i {
+                color: #333;
+
+                &:hover {
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+    .move-btn {
+        position: absolute;
+        display: none;
+        top: 0;
+        z-index: 10;
+        height: 100%;
+        width: 18px;
+        line-height: 28px;
+        background: #2f75c1;
+        color: #fff;
+        text-align: center;
+        font-size: 16px;
+        cursor: pointer;
+
+        &:hover {
+            background: #1d62ad;
+        }
+
+        &.move-left {
+            left: 0;
+        }
+
+        &.move-right {
+            right: 0;
+        }
+    }
+
+    .tabs-overflow {
+        .navigation-3 {
+            margin: 0 19px;
+        }
+
+        .move-btn {
+            display: block;
+        }
+    }
+}
+
+.mainHomeCollapsed {
+    .navigation {
+        transform: translateX(-180px);
+    }
+
+    .toggleNavBtn {
+        transform: translateX(-180px);
+        &:after {
+            content: "\f101";
+        }
+    }
+
+    .mainFrame {
+        margin: -50px 0 0 0;
+        padding: 50px 0 0 0;
+    }
+}

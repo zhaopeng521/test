@@ -1,0 +1,61 @@
+<div class="page-header clearfix">
+    <ol class="breadcrumb">
+        <li><a href="#/home">首页</a></li>
+        <li><a href="#/log/basic">账务详单查询</a></li>
+        <li class="active">充值记录查询</li>
+    </ol>
+</div>
+
+<div>
+    <form class="form-inline margin-bottom-20">
+        <div class="form-group">
+            <label for="exampleInputName2">查询号码：</label>
+            <input type="text" class="form-control" ng-model="vm.num" />
+        </div>
+        <div class="form-group margin-right-10">
+            <div class="col-md-6" >
+                <label>开始时间：</label>
+                <input class="form-control input-sm start_date" ui-datepicker-popup type="text" ng-model="vm.start_date" view="date" format="yyyy-MM-dd"
+                />
+            </div>
+            <div class="col-md-6">
+                <label>结束时间：</label>
+                <input class="form-control input-sm end_date" ui-datepicker-popup type="text" ng-model="vm.end_date" view="date" format="yyyy-MM-dd"
+                />
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" ng-click="vm.submitTable()">查询</button>
+    </form>
+    <!-- 用户资料查询结果 -->
+    <div style="overflow:auto;min-height:140px" class="padding-top-10  padding-bottom-20">
+        <table style="table-layout:fixed;width:1500px" class="table table-striped table-bordered table-hover text-center resizable">
+            <thead>
+                <tr>
+                    <th width="4%">序号</th>
+                    <th>充值账号</th>
+                    <th>充值流水</th>
+                    <th>充值时间</th>
+                    <th>充值金额</th>
+                    <th>冲正流水</th>
+                    <th>冲正时间</th>
+                    <th>充值工号</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in vm.table">
+                    <td>{{$index+1}}</td>
+                    <td>{{item["acct_id"]}}</td>
+                    <td>{{item["payment_id"]}}</td>
+                    <td>{{item["paid_time"]}}</td>
+                    <td>{{item["payment_amount"]}}</td>
+                    <td>{{item["src_payment_id"]}}</td>
+                    <td>{{item["cz_time"]}}</td>
+                    <td>{{item["channel_staff_id"]}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- loading -->
+        <ui-loading-wrap loading="vm.scp.loading" list="vm.scp.list" result="vm.scp.result" message="vm.scp.msg"></ui-loading-wrap>
+    </div>
+</div>

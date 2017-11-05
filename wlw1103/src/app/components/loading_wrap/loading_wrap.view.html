@@ -1,0 +1,18 @@
+<div class="loading-wrap-group">
+    <div ng-if="!loading">
+        <div ng-if="(list == 0 && result == '0') || result == '201'" class="loading-text">         
+            <div class="alert alert-info" role="alert">
+                <i class="fa fa-info-circle text-info"></i>{{message ? message : '没有查询到符合条件的记录'}}
+              </div>
+        </div>
+        <div ng-if="result == '500'" class="loading-text"> 
+            <div class="alert alert-danger" role="alert">
+                <i class="fa fa-info-circle text-danger"></i>{{message ? message : '服务器异常'}}
+            </div>
+        </div>
+    </div>
+    <div class="wait" ng-if="loading">
+        <ui-loading ng-if="loading" size="md" color="#ff9900"></ui-loading>
+    </div>
+    
+</div>

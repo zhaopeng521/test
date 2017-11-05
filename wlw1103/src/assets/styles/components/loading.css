@@ -1,0 +1,23 @@
+.answer {
+  position: relative;
+  top: 0;
+  left: 0;
+  max-height: 488px;
+}
+
+.answer .loading-wrap-group {
+  font-size: 16px;
+  position: fixed;
+  top: 177px;
+  left: 600px;
+  z-index: 7;
+}
+
+.bg-info {
+  height: 30px;
+  line-height: 30px;
+}
+
+.table-responsive {
+  overflow: auto;
+}

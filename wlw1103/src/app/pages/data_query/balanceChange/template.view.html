@@ -1,0 +1,54 @@
+<div class="page-header clearfix">
+    <ol class="breadcrumb">
+        <li><a href="#/home">首页</a></li>
+        <li><a href="#/log/basic">账务详单查询</a></li>
+        <li class="active">余额变动明细查询</li>
+    </ol>
+</div>
+
+<div>
+    <form class="form-inline margin-bottom-20">
+        <div class="form-group">
+            <label for="exampleInputName2">用户号码：</label>
+            <input type="text" class="form-control" ng-model="vm.num" />
+        </div>
+        <div class="form-group margin-right-10">
+            <div class="col-md-6">
+                <label>开始时间：</label>
+                <input class="form-control input-sm" ui-datepicker-popup type="text" ng-model="vm.start_date" view="date" format="yyyy-MM-dd"
+                />
+            </div>
+            <div class="col-md-6">
+                <label>结束时间：</label>
+                <input class="form-control input-sm" ui-datepicker-popup type="text" ng-model="vm.end_date" view="date" format="yyyy-MM-dd"
+                />
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" ng-click="vm.submitTable()">查询</button>
+    </form>
+    <!-- 用户资料查询结果 -->
+    <div style="overflow:auto;max-height:400px" class="padding-top-10  padding-bottom-20">
+        <table style="table-layout:fixed;" class="table table-striped table-bordered table-hover text-center resizable">
+            <thead>
+                <tr>
+                    <th width="6%">编号</th>
+                    <th>时间</th>
+                    <th>业务类型</th>
+                    <th>金额</th>
+                    <th>余额</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in vm.table">
+                    <td>{{$index+1}}</td>
+                    <td>{{item["oper_date"]}}</td>
+                    <td>{{item["note"]}}</td>
+                    <td>{{item["amount"]}}</td>
+                    <td>{{item["balance"]}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- loading -->
+        <ui-loading-wrap loading="vm.scp.loading" list="vm.scp.list" result="vm.scp.result" message="vm.scp.msg"></ui-loading-wrap>
+    </div>
+</div>

@@ -1,0 +1,91 @@
+<!--后向流量池使用量查询  -->
+<div class="page-header clearfix">
+    <ol class="breadcrumb">
+        <li><a href="#/home">首页</a></li>
+        <li><a href="#/log/basic">日志查询</a></li>
+        <li class="active">后向流量池使用量查询</li>
+    </ol>
+</div>
+
+<div>
+    <form class="form-inline margin-bottom-20">
+        <div class="form-group">
+            <label>查询号码：</label>
+            <input class="form-control" type="text" ng-model="vm.num" />
+        </div>
+        <ui-radio-group ng-model="vm.selected2" class="margin-right-20">
+            <ui-radio value="'0'" class="margin-right-10">代表号码</ui-radio>
+            <ui-radio value="'1'" class="margin-right-10">成员号码</ui-radio>
+        </ui-radio-group>
+        <div class="form-group margin-right-10">
+            <label>充值账期：</label>
+            <input class="form-year form-control" ui-datepicker-popup type="text" ng-model="vm.year" view="year" format="yyyy" style="width:70px"
+            />年
+            <input class="form-month form-control" ui-datepicker-popup type="text" ng-model="vm.month" view="month" format="MM" style="width:55px"
+            />月
+        </div>
+        <button type="submit" class="btn btn-primary" ng-click="vm.submitTable()">查询</button>
+    </form>
+    <div style="padding-top:10px;padding-bottom:20px;overflow:auto">
+        <table style="table-layout:fixed;width:1400px" class="table table-striped table-bordered table-hover text-center resizable">
+            <thead>
+                <tr>
+                    <th>用户号码</th>
+                    <th>用户标识</th>
+                    <th>套餐名称</th>
+                    <th>生效时间</th>
+                    <th>失效时间</th>
+                    <th>流量池总量（kB）</th>
+                    <th>已使用量（kB）</th>
+                    <th>剩余量（kB）</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{vm.group["group_acc_nbr"]}}</td>
+                    <td>{{vm.group["group_serv_id"]}}</td>
+                    <td>{{vm.group["offer_name"]}}</td>
+                    <td>{{vm.group["eff_date"]}}</td>
+                    <td>{{vm.group["exp_date"]}}</td>
+                    <td>{{vm.group["balance_amount"]}}</td>
+                    <td>{{vm.group["balance-used"]}}</td>
+                    <td>{{vm.group["balance_available"]}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <ui-loading-wrap loading="vm.scp.loading" list="vm.scp.list" result="vm.scp.result" message="vm.scp.msg"></ui-loading-wrap>
+    </div>
+    <!-- 分页 -->
+    <!-- <ui-pagination-group ng-model="vm.page.currentPage" items-per-page="vm.page.perPage" total-items="vm.page.totalItems" ng-change="vm.changePage(vm.page.currentPage)"
+    on-items-per-page-change="vm.changePerPage(perPage)" on-refresh="vm.refreshPage()" items-per-page-max="100" items-per-page-step="20"
+    style="padding-top:20px;padding-bottom:20px;"></ui-pagination-group> -->
+</div>
+<div class="margin-top-20 margin-bottom-20">
+    <p class="bg-info" style="height:30px;line-height:30px;"></p>
+    <!-- 表格 -->
+    <h4>流量池成员流量使用明细</h4>
+    <div style="padding-top:10px;padding-bottom:20px;overflow-x:scroll">
+        <table style="table-layout:fixe" class="table table-striped table-bordered table-hover text-center resizable">
+            <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>用户号码</th>
+                    <th>用户标识</th>
+                    <th>流量池使用量（kB）</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in vm.table">
+                    <td>{{$index+1}}</td>
+                    <td>{{item["group_acc_nbr"]}}</td>
+                    <td>{{item["group_serv_id"]}}</td>
+                    <td>{{item["balance_used"]}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- 分页 -->
+    <!-- <ui-pagination-group ng-model="vm.page.currentPage" items-per-page="vm.page.perPage" total-items="vm.page.totalItems" ng-change="vm.changePage(vm.page.currentPage)"
+    on-items-per-page-change="vm.changePerPage(perPage)" on-refresh="vm.refreshPage()" items-per-page-max="100" items-per-page-step="20"
+    style="padding-top:20px;padding-bottom:20px;"></ui-pagination-group> -->
+</div>

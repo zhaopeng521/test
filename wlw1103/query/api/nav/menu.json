@@ -1,0 +1,59 @@
+{
+    "resultCode": "1000",
+    "resultMsg": "success",
+    "data": {
+        "records": [{
+            "link": "#/home",
+            "name": "首页",
+            "icon": "home"
+        }, {
+            "name": "日志查询",
+            "icon": "file-text-o",
+            "children": [{
+                "link": "#/userPreference",
+                "name": "用户资料查询",
+                "icon": "caret-right"
+            },{
+                "link": "#/writeoff",
+                "name": "合帐查询",
+                "icon": "caret-right"
+            }, {
+                "link": "#/home/info1",
+                "name": "实时日志查询11",
+                "icon": "caret-right"
+            }, {
+                "link": "#/message",
+                "name": "用户短信查询",
+                "icon": "caret-right"
+            }]
+        }, {
+            "name": "监控告警",
+            "icon": "bar-chart",
+            "children": [{
+                "link": "#/monitor/watcher",
+                "name": "监控指标",
+                "icon": "caret-right"
+            }, {
+                "link": "#/monitor/display",
+                "name": "监控展示",
+                "icon": "caret-right"
+            }, {
+                "link": "#/monitor/query",
+                "name": "告警查询",
+                "icon": "caret-right"
+            }]
+        }, {
+            "name": "系统管理",
+            "icon": "cogs",
+            "children": [{
+                "link": "#/system/host",
+                "name": "主机管理",
+                "icon": "caret-right"
+            },{
+                "link": "#/system/component",
+                "name": "组件配置",
+                "icon": "caret-right"
+            }]
+        }]
+    }
+}

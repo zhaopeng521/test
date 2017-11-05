@@ -1,0 +1,88 @@
+.login-body {
+    background: #fff;
+
+    .container-inner {
+        width: 980px;
+        margin: 0 auto;
+
+        .header-top {
+            position: relative;
+            background: none;
+            top: auto;
+            left: auto;
+            border-bottom: 1px solid #eee;
+
+            .branding {
+                width: 160px;
+            }
+
+            .navbar-left {
+                margin: 0;
+            }
+
+            .app-name {
+                border: none;
+                color: #aaa;
+            }
+
+            .nav {
+                li {
+                    a {
+                        border: none;
+                        color: #666;
+                    }
+                }
+            }
+
+            .branding {
+                background: none;
+
+                a {
+                   background: url(../images/logo_white.png) no-repeat; 
+               }
+            }
+        }
+
+        .home-container {
+            margin: 20px 0 0;
+
+            .home-slider {
+                float: left;
+                margin: 20px 0 0 20px;
+            }
+
+            .home-login {
+                float: left;
+                width: 300px;
+                border-left: 1px solid #eee;
+                margin: 40px 0 0 30px;
+                padding: 10px 0 0 20px;
+
+                .tenant-list {
+                    position: relative;
+
+                    .tenant-list-loading {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        line-height: 25px;
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+    }
+
+    footer {
+        border-top: 1px solid #eee;
+        text-align: center;
+        padding: 20px 0 0;
+        margin-top: 40px;
+        color: #999;
+    }
+
+}
+
+

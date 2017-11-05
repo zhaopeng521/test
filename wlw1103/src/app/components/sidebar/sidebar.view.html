@@ -1,0 +1,13 @@
+<nav class="navigation nav-overflow animate">
+    <ul class="nav">
+        <li ng-repeat="link in links">
+            <span ng-click="toggleChildren(link)" class="link-title no-link" ng-class="{'link-title-chidren':link.children, 'link-title-expanded':link.expanded}"><i class="fa fa-{{link.icon}}"></i> {{link.name}}</span>
+            <ul ng-show="link.expanded">
+                <li ng-repeat="link in link.children" class="{{link.class}}">
+                    <i class="fa fa-caret-right pull-left"></i>
+                    <a ng-click="openTab(link)">{{link.name}}</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</nav>

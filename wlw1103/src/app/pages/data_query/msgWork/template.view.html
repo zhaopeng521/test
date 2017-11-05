@@ -1,0 +1,66 @@
+<div class="page-header clearfix">
+    <ol class="breadcrumb">
+        <li><a href="#/home">首页</a></li>
+        <li><a href="#/log/basic">用户资料查询</a></li>
+        <li class="active">短信业务详单查询</li>
+    </ol>
+</div>
+
+<div>
+    <form class="form-inline margin-bottom-20">
+        <div class="form-group margin-right-10">
+            <label>账期：</label>
+            <input class="form-year form-control" ui-datepicker-popup type="text" ng-model="vm.year" view="year" format="yyyy" style="width:70px"
+            />年
+            <input class="form-month form-control" ui-datepicker-popup type="text" ng-model="vm.month" view="month" format="MM" style="width:55px"
+            />月
+        </div>
+        <ui-radio-group ng-model="vm.selected2">
+            <ui-radio value="'0'" class="margin-right-10">号码</ui-radio>
+            <ui-radio value="'1'" class="margin-right-10">用户标识</ui-radio>
+        </ui-radio-group>
+        <div class="form-group margin-right-10">
+            <label>开始时间：</label>
+            <input class="form-control input-sm" ui-datepicker-popup type="text" ng-model="data.date" view="date" format="yyyy-MM-dd" />至<input class="form-control input-sm" ui-datepicker-popup type="text" ng-model="data.date" view="date" format="yyyy-MM-dd" />
+        </div>
+        <button type="submit" class="btn btn-primary" ng-click="vm.submitTable()">查询</button>
+    </form>
+    <!-- 用户资料查询结果 -->
+    <div style="overflow:auto;min-height:140px" class="padding-top-10  padding-bottom-20">
+        <table style="table-layout:fixed;width:2700px" class="table table-striped table-bordered table-hover text-center resizable">
+            <thead>
+                <tr>
+                    <th width="3.5%">编号</th>
+                    <th>号码</th>
+                    <th>用户标识</th>
+                    <th>FILE_ID</th>
+                    <th>EVENT_ID</th>
+                    <th>通话开始时间</th>
+                    <th>状态时间</th>
+                    <th>全国中心费用1</th>
+                    <th>全国中心费用2</th>
+                    <th>全国中心费用3</th>
+                    <th>集团批价的套餐标识1</th>
+                    <th>集团批价的套餐标识2</th>
+                    <th>全国中心费用1账目类型</th>
+                    <th>全国中心费用2账目类型</th>
+                    <th>全国中心费用</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in vm.table">
+                    <td>{{$index+1}}</td>
+                    <td>{{item["acc_nbr"]}}</td>
+                    <td>{{item["serv_id"]}}</td>
+                    <td>{{item["send_date"]}}</td>
+                    <td>{{item["send_message"]}}</td>
+                    <td>{{item["msg_type"]}}</td>
+                    <td>{{item["msg_comments"]}}</td>
+                    <td>暂不发</td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- loading -->
+        <ui-loading-wrap loading="vm.scp.loading" list="vm.scp.list" result="vm.scp.result" message="vm.scp.msg"></ui-loading-wrap>
+    </div>
+</div>

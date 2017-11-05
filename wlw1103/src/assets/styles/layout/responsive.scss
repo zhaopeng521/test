@@ -1,0 +1,40 @@
+@media screen and (max-width: 1100px) {
+    body {
+        font-size: 12px;
+    }
+
+    .container-fulid {
+        margin-left: 160px;
+
+        .container-inner {
+            padding: 0 15px;
+
+            .sub-navigation {
+                width: 140px;
+                left: 160px;
+            }
+
+            .page-3col {
+                margin-left: 140px;
+            }
+        }
+    }
+
+    .header-top {
+        .branding {
+            width: 160px;
+        }
+    }
+
+    .sidebar-left {
+        width: 160px;
+
+        nav {
+            width: 160px;
+        }
+    }
+
+    .chart-containter{
+        font-size: 12px;
+    }
+}
